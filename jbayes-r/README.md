@@ -5,9 +5,11 @@ It needs the installation of R Environment (http://cran.r-project.org/) and JRI 
 
 # Installation of JRI via maven
 Go to the directory libs/rJava.
-* mvn install:install-file -Dfile=JRIEngine.jar -DgroupId=net.rforge -DartifactId=JRIEngine -Dversion=0.9.7 -Dpackaging=jar
-* mvn install:install-file -Dfile=REngine.jar -DgroupId=net.rforge -DartifactId=REngine -Dversion=0.9.7 -Dpackaging=jar
-* mvn install:install-file -Dfile=JRI.jar -DgroupId=net.rforge -DartifactId=JRI -Dversion=0.9.7 -Dpackaging=jar
+```
+mvn install:install-file -Dfile=JRIEngine.jar -DgroupId=net.rforge -DartifactId=JRIEngine -Dversion=0.9.7 -Dpackaging=jar
+mvn install:install-file -Dfile=REngine.jar -DgroupId=net.rforge -DartifactId=REngine -Dversion=0.9.7 -Dpackaging=jar
+mvn install:install-file -Dfile=JRI.jar -DgroupId=net.rforge -DartifactId=JRI -Dversion=0.9.7 -Dpackaging=jar
+```
 
 # Installation and configuration of R
 * Go to http://cran.r-project.org/ and download the latest version of R.
@@ -21,4 +23,8 @@ Go to the directory libs/rJava.
 {code}
 > install.packages("rJava")
 {code}
-* execute {code}system.file("jri",package="rJava"){code} in R Environment and obtain the path to rJava. After that add this path to PATH. (if x64 is used add concerning directory)
+* execute 
+```
+system.file("jri",package="rJava")
+``` 
+in your R Environment and obtain the path to rJava. After that add this path to PATH. (if x64 is used add concerning directory)
