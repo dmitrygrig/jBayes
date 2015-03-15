@@ -3,12 +3,12 @@ The project contains examples of usage of jBayes library. It needs the installat
 
 # Installation of JRI via maven
 Go to the directory libs/rJava.
-mvn install:install-file -Dfile=JRIEngine.jar -DgroupId=net.rforge -DartifactId=JRIEngine -Dversion=0.9.7 -Dpackaging=jar
-mvn install:install-file -Dfile=REngine.jar -DgroupId=net.rforge -DartifactId=REngine -Dversion=0.9.7 -Dpackaging=jar
-mvn install:install-file -Dfile=JRI.jar -DgroupId=net.rforge -DartifactId=JRI -Dversion=0.9.7 -Dpackaging=jar
+* mvn install:install-file -Dfile=JRIEngine.jar -DgroupId=net.rforge -DartifactId=JRIEngine -Dversion=0.9.7 -Dpackaging=jar
+* mvn install:install-file -Dfile=REngine.jar -DgroupId=net.rforge -DartifactId=REngine -Dversion=0.9.7 -Dpackaging=jar
+* mvn install:install-file -Dfile=JRI.jar -DgroupId=net.rforge -DartifactId=JRI -Dversion=0.9.7 -Dpackaging=jar
 
 # Installation and configuration of R
-*Go to http://cran.r-project.org/ and download the latest version of R.
+* Go to http://cran.r-project.org/ and download the latest version of R.
 * Install R
 * Set up a environment variable R_HOME to the installation of R: “C:\Program Files\R\R-{version}″
 * Append R’s bin directory to path, in my case is: “%R_HOME%\bin;”
