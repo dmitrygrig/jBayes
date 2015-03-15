@@ -15,3 +15,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package jbayes.core;
+
+/**
+ * The class represents the link type of {@link Node}.
+ *
+ * @author Dmytro Grygorenko <dmitrygrig(at)gmail.com>
+ */
+public enum NodeLinkType {
+
+    NONE, AND, OR
+}

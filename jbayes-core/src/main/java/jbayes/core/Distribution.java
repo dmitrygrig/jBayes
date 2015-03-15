@@ -15,3 +15,19 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package jbayes.core;
+
+import java.util.List;
+
+/**
+ *
+ * @author Dmytro Grygorenko <dmitrygrig(at)gmail.com>
+ */
+public interface Distribution {
+
+    public String convertToString();
+
+    public void setInference(List<Double> inference);
+
+    public List<Double> getInference();
+}

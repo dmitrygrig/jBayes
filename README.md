@@ -1,2 +1,2 @@
-# Grain4J
-Java adapter to gRain
+# jBayes
+Java library for Bayesian Networks.

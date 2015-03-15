@@ -15,3 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package jbayes.core;
+
+/**
+ *
+ * @author Dmytro Grygorenko <dmitrygrig(at)gmail.com>
+ */
+public class TestConstants {
+
+    public static final double DELTA = 1e-15;
+}
