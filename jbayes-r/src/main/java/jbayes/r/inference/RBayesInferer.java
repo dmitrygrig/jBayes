@@ -8,6 +8,7 @@ package jbayes.r.inference;
 import jbayes.inference.IBayesInferer;
 import com.google.common.primitives.Doubles;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,7 +41,7 @@ public class RBayesInferer extends RBayesInfererBase implements IBayesInferer {
      * @param nodes
      */
     @Override
-    public void inferNodes(List<Node> nodes) {
+    public void inferNodes(Collection<Node> nodes) {
         Ensure.NotNull(nodes, "nodes");
 
         initializeIfNecessary();

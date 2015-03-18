@@ -17,7 +17,7 @@
  */
 package jbayes.inference;
 
-import java.util.List;
+import java.util.Collection;
 import jbayes.core.BayesNet;
 import jbayes.core.Node;
 
@@ -52,7 +52,7 @@ public interface IBayesInferer {
      *
      * @param nodes
      */
-    void inferNodes(List<Node> nodes);
+    void inferNodes(Collection<Node> nodes);
 
     /**
      * Eliminates marginal probability for the specified nodes of the network.

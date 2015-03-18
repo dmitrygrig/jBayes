@@ -29,6 +29,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
+import jbayes.core.BayesNet;
 import jbayes.core.Node;
 import jbayes.util.Ensure;
 import org.slf4j.Logger;
@@ -44,6 +45,10 @@ public class RAsyncBayesInferer extends RBayesInfererBase implements Closeable {
 
     private ExecutorService executorService;
     private static AtomicLong executionCount = new AtomicLong(0);
+    
+     public RAsyncBayesInferer(R r, BayesNet network) {
+        this(r, new RBayesNetAdapter(network));
+    }
 
     public RAsyncBayesInferer(R r, RBayesNetAdapter queryableNetwork) {
         super(r, queryableNetwork);
@@ -144,7 +149,7 @@ public class RAsyncBayesInferer extends RBayesInfererBase implements Closeable {
      * @param nodes
      * @return The most probable level for each of the specified nodes
      */
-    public Future<List<Integer>> inferMostProbableAsync(String... nodes) {
+    public Future<List<Integer>> inferMostProbableLevelsAsync(String... nodes) {
         return this.inferMostProbableLevelsAsync(Arrays.asList(nodes));
     }
 
