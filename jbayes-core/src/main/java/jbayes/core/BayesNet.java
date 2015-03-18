@@ -17,8 +17,9 @@
  */
 package jbayes.core;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import jbayes.util.Ensure;
 
@@ -30,8 +31,8 @@ import jbayes.util.Ensure;
 public class BayesNet {
 
     private String name;
-    private List<Node> nodes;
-    private List<Link> links;
+    private Set<Node> nodes;
+    private Set<Link> links;
 
     /**
      * Creates new {@link BayesNet} instance.
@@ -69,36 +70,36 @@ public class BayesNet {
     /**
      * Returns list of network nodes.
      *
-     * @return List of nodes.
+     * @return Set of nodes.
      */
-    public List<Node> getNodes() {
-        return nodes != null ? nodes : (nodes = new ArrayList<>());
+    public Set<Node> getNodes() {
+        return nodes != null ? nodes : (nodes = new HashSet<>());
     }
 
     /**
      * Sets the list of network nodes.
      *
-     * @param nodes List of network nodes
+     * @param nodes Set of network nodes
      */
-    public void setNodes(List<Node> nodes) {
+    public void setNodes(Set<Node> nodes) {
         this.nodes = nodes;
     }
 
     /**
      * Returns the list of network links between nodes.
      *
-     * @return List of network links between nodes.
+     * @return Set of network links between nodes.
      */
-    public List<Link> getLinks() {
-        return links != null ? links : (links = new ArrayList<>());
+    public Set<Link> getLinks() {
+        return links != null ? links : (links = new HashSet<>());
     }
 
     /**
      * Sets the list of network links between nodes
      *
-     * @param links List of network links between nodes
+     * @param links Set of network links between nodes
      */
-    public void setLinks(List<Link> links) {
+    public void setLinks(Set<Link> links) {
         this.links = links;
     }
 
@@ -139,9 +140,10 @@ public class BayesNet {
      */
     public void addLink(Link link) {
         Ensure.IsFalse(getLinks().contains(link), String.format("Link %s already exists in the network", link));
-        Ensure.IsTrue(getNodes().contains(link.getParent()), "Parent node doesn't exist in the network yet.");
-        Ensure.IsTrue(getNodes().contains(link.getChild()), "Child node doesn't exist in the network yet.");
 
+        addNodeIfNecessary(link.getParent());
+        addNodeIfNecessary(link.getChild());
+        
         link.setNetwork(this);
         getLinks().add(link);
     }

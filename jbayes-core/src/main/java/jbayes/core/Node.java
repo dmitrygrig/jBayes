@@ -175,7 +175,7 @@ public class Node {
     public void setEvidence(String level) {
         Ensure.NotNull(level, "evidence");
 
-        if (getEvidence().equals(level)) {
+        if (level.equals(getEvidence())) {
             return;
         }
 

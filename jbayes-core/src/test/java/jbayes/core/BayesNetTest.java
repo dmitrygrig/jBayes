@@ -107,11 +107,14 @@ public class BayesNetTest {
     @Test
     public void testAddLink_Link_NetworkIsSet() throws Exception {
         System.out.println("addLink");
-        Link node = mock(Link.class);
-        BayesNet instance = new BayesNet();
-        instance.addLink(node);
+        Node a = new Node("a");
+        Node b = new Node("b");
+        Link instance = new Link(a, b);
+        BayesNet net = new BayesNet();
+        
+        net.addLink(instance);
 
-        verify(node).setNetwork(instance);
+        assertEquals(net, instance.getNetwork());
     }
 
     /**
@@ -122,11 +125,13 @@ public class BayesNetTest {
     @Test
     public void testAddLink_Link_Added() throws Exception {
         System.out.println("addLink");
-        Link node = mock(Link.class);
+        Node a = new Node("a");
+        Node b = new Node("b");
+        Link link = new Link(a, b);
         BayesNet instance = new BayesNet();
-        instance.addLink(node);
+        instance.addLink(link);
 
-        assertTrue(instance.getLinks().contains(node));
+        assertTrue(instance.getLinks().contains(link));
     }
 
     /**
@@ -137,10 +142,12 @@ public class BayesNetTest {
     @Test
     public void testAddLink_Link_AddedJustOne() throws Exception {
         System.out.println("addLink");
-        Link node = mock(Link.class);
+        Node a = new Node("a");
+        Node b = new Node("b");
+        Link link = new Link(a, b);
         BayesNet instance = new BayesNet();
         int before = instance.getLinks().size();
-        instance.addLink(node);
+        instance.addLink(link);
         int after = instance.getLinks().size();
         assertEquals(1, after - before);
     }
