@@ -23,6 +23,7 @@ import jbayes.core.NodeLinkType;
 import jbayes.inference.IBayesInferer;
 import jbayes.r.R;
 import jbayes.r.inference.RBayesInferer;
+import org.rosuda.JRI.REXP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,8 +42,7 @@ public class BNAsiaApp {
      */
     public static void main(String[] args) {
 
-        final String rHomeDir = System.getenv("R_HOME");
-        R rEngine = R.getInstance(rHomeDir);
+        R rEngine = R.getInstance();
 
         String[] levels = new String[]{"yes", "no"};
 

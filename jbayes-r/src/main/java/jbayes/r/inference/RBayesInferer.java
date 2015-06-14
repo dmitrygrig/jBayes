@@ -44,7 +44,7 @@ public class RBayesInferer extends RBayesInfererBase implements IBayesInferer {
     public void inferNodes(Collection<Node> nodes) {
         Ensure.NotNull(nodes, "nodes");
 
-        initializeIfNecessary();
+//        initializeIfNecessary();
 
         try {
 

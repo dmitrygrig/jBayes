@@ -37,6 +37,11 @@ public class R {
     // ******** singleton ********
     private static R instance;
 
+    /**
+     * Returns singleton instance of R engine with defined home library.
+     * @param rHomeDir Full path to home library.
+     * @return R engine
+     */
     public static R getInstance(String rHomeDir) {
         Ensure.NotNullOrEmpty(rHomeDir, "R Home Directory");
         if (instance == null) {
@@ -48,23 +53,29 @@ public class R {
         return instance;
     }
 
+    /**
+     * Returns singleton instance of R engine with home library defined by env variable
+     * %R_LIB_HOME%.
+     *
+     * @return R engine
+     */
     public static R getInstance() {
         if (instance == null) {
-            String rHomeDir = System.getenv("R_HOME");
+            String rHomeDir = System.getenv("R_LIB_HOME");
             instance = getInstance(rHomeDir);
         }
         return instance;
     }
 
-    public R(String homeDir) {
-        this.homeDir = homeDir;
+    private R(String homeDir) {
+        this.homeDir = homeDir.replace("\\","/");
     }
 
-    public boolean init() {
+    private boolean init() {
         return init(new String[0]);
     }
 
-    public boolean init(String[] args) {
+    private boolean init(String[] args) {
         // just making sure we have the right version of everything
         if (!Rengine.versionCheck()) {
             LOGGER.warn("** Version mismatch - Java files don't match library version.");
@@ -89,30 +100,46 @@ public class R {
     public REXP eval(String cmd) {
         checkRNotNull();
         Ensure.NotNullOrEmpty(cmd, "R Command");
-        
+
         REXP res = re.eval(cmd);
         LOGGER.trace(cmd);
         return res;
     }
 
+    /**
+     * Returns underlying JRI R engine instance.
+     * @return 
+     */
     public Rengine getRe() {
         return re;
     }
 
-    public void lib(String name) {
-        Ensure.NotNullOrEmpty(name, "R Library");
-        eval(String.format("library(%s, lib.loc=\"%s\")", name, homeDir));
+    /**
+     * Loads library into session from the R library home directory.
+     * 
+     * @param libName Library name
+     */
+    public void lib(String libName) {
+        Ensure.NotNullOrEmpty(libName, "R Library");
+        eval(String.format("library(%s, lib.loc=\"%s\")", libName, homeDir));
     }
 
+    /**
+     * Returns paths to library directories.
+     * @return 
+     */
     public String libPaths() {
         return eval(".libPaths()").asString();
     }
 
+    /**
+     * Clears current R environment.
+     */
     public void clearAll() {
         eval("rm(list=ls())");
     }
-    
-      protected void checkRNotNull(){
+
+    protected void checkRNotNull() {
         Ensure.NotNull(re, "R Engine is not yet initialized");
     }
 }

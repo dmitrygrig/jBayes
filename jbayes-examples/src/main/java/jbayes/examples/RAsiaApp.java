@@ -18,6 +18,7 @@
 package jbayes.examples;
 
 import jbayes.r.R;
+import org.rosuda.JRI.REXP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,11 +38,7 @@ public class RAsiaApp {
      */
     public static void main(String[] args) {
 
-        final String rHomeDir = System.getenv("R_HOME");
-        R r = new R(rHomeDir);
-        if (!r.init(args)) {
-            return;
-        }
+        R r = R.getInstance();
 
         try {
 
@@ -50,7 +47,6 @@ public class RAsiaApp {
             r.lib("gRain");
             r.lib("graph");
             r.lib("grid");
-            r.lib("Rgraphviz");
 
             // create nodes
             r.eval("yn <- c(\"yes\", \"no\")");
@@ -70,10 +66,11 @@ public class RAsiaApp {
             // set evidences and query the network
             r.eval("setEvidence(bn.asia, c(\"asia\",\"xray\"), c(\"yes\", \"yes\"))");
             r.eval("querygrain(bn.asia, nodes=c(\"tub\"), type=\"marginal\")");
-            
         } catch (Exception e) {
             LOGGER.error("Asia", e);
         }
 
+        // exit in order to stop R-Environment.
+        System.exit(0);
     }
 }
