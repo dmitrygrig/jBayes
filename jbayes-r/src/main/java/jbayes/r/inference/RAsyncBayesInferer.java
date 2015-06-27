@@ -92,7 +92,7 @@ public class RAsyncBayesInferer extends RBayesInfererBase implements Closeable {
         final String evidenceCmd = String.format("%s <- setEvidence(%s, c(%s), c(%s))",
                 bntemp,
                 getQueryableNetwork().getAlias(),
-                getQueryableNetwork().getFormattedNodeNamesByNode(nodeWithEvidences),
+                getQueryableNetwork().getFormattedNodeNamesByNodes(nodeWithEvidences),
                 getQueryableNetwork().getFormattedNodeEvidences(nodeWithEvidences));
 
         Callable<List<Integer>> callable = () -> {
@@ -102,10 +102,11 @@ public class RAsyncBayesInferer extends RBayesInfererBase implements Closeable {
                 getR().eval(evidenceCmd);
 
                 // execute query: querygrain(bn1, nodes=c("smoke"), type="marginal")$smoke
+                String nodeNames = getQueryableNetwork().getFormattedNodeNamesByNodeNames(finalNodes);
                 String queryCmd = String.format("%s <- querygrain(%s, nodes=c(%s), type=\"marginal\")",
                         bnres,
                         bntemp,
-                        getQueryableNetwork().getFormattedNodeNamesByName(finalNodes));
+                        nodeNames);
                 getR().eval(queryCmd);
 
                 for (String node : finalNodes) {

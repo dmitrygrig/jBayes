@@ -98,11 +98,10 @@ public class R {
     }
 
     public REXP eval(String cmd) {
-        checkRNotNull();
+        Ensure.NotNull(re, "R Engine is not yet initialized");
         Ensure.NotNullOrEmpty(cmd, "R Command");
-
-        REXP res = re.eval(cmd);
         LOGGER.trace(cmd);
+        REXP res = re.eval(cmd);
         return res;
     }
 
@@ -125,21 +124,9 @@ public class R {
     }
 
     /**
-     * Returns paths to library directories.
-     * @return 
-     */
-    public String libPaths() {
-        return eval(".libPaths()").asString();
-    }
-
-    /**
      * Clears current R environment.
      */
     public void clearAll() {
         eval("rm(list=ls())");
-    }
-
-    protected void checkRNotNull() {
-        Ensure.NotNull(re, "R Engine is not yet initialized");
     }
 }

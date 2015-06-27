@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jbayes.r.bn;
+package jbayes.r.inference;
 
-import jbayes.r.inference.RNodeAdapter;
 import jbayes.core.Link;
 import jbayes.core.Node;
+import jbayes.r.inference.RBayesInfererBase.RNodeAdapter;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

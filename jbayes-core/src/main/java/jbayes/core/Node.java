@@ -179,7 +179,7 @@ public class Node {
             return;
         }
 
-        LOGGER.trace("Evidence %s is set to Node %s", level, this.getName());
+        LOGGER.trace("Evidence {} is set to Node {}", level, this.getName());
 
         int index = getLevelIndex(level);
         this.evidence = level;

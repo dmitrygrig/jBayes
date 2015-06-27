@@ -44,7 +44,7 @@ public class RBayesInferer extends RBayesInfererBase implements IBayesInferer {
     public void inferNodes(Collection<Node> nodes) {
         Ensure.NotNull(nodes, "nodes");
 
-//        initializeIfNecessary();
+        initializeIfNecessary();
 
         try {
 
@@ -55,11 +55,14 @@ public class RBayesInferer extends RBayesInfererBase implements IBayesInferer {
                     .filter(x -> x.getEvidence() != null)
                     .collect(Collectors.toList());
 
-            // set all evidences: setEvidence(bn.asia, c("asia","either"), c("yes", "yes"))
-            String evidenceCmd = String.format("bntemp <- setEvidence(%s, c(%s), c(%s))",
-                    getQueryableNetwork().getAlias(),
-                    getQueryableNetwork().getFormattedNodeNamesByNode(nodeWithEvidences),
-                    getQueryableNetwork().getFormattedNodeEvidences(nodeWithEvidences));
+            // set all evidences, e.g., setEvidence(bn.asia, c("asia","either"), c("yes", "yes"))
+            String alias = getQueryableNetwork().getAlias();
+            String nodeNames = getQueryableNetwork().getFormattedNodeNamesByNodes(nodeWithEvidences);
+            String nodeEvidences = getQueryableNetwork().getFormattedNodeEvidences(nodeWithEvidences);
+            final String evidenceCmd = String.format("bntemp <- setEvidence(%s, c(%s), c(%s))",
+                    alias,
+                    nodeNames,
+                    nodeEvidences);
             getR().eval(evidenceCmd);
 
             // get nodes without evidence
@@ -70,7 +73,7 @@ public class RBayesInferer extends RBayesInfererBase implements IBayesInferer {
 
             // execute inferAllNodes: querygrain(bn1, nodes=c("smoke"), type="marginal")$smoke
             String queryCmd = String.format("restemp <- querygrain(bntemp, nodes=c(%s), type=\"marginal\")",
-                    getQueryableNetwork().getFormattedNodeNamesByNode(finalNodes));
+                    getQueryableNetwork().getFormattedNodeNamesByNodes(finalNodes));
             getR().eval(queryCmd);
 
             // collect results
